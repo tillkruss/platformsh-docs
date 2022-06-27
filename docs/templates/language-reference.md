@@ -49,7 +49,8 @@ Depending on the language, a brief description of the recommended way to handle 
 If available, include examples for connecting to different services in an app
 (taken from https://examples.docs.platform.sh/).
 
-The following examples show how to use <LANGUAGE_NAME> to access various services. To configure a given service, see the page dedicated to that service.
+The following examples show how to use <LANGUAGE_NAME> to access various [services](/add-services/_index.md).
+To configure a given service, see the page dedicated to that service.
 
 {{< codetabs >}}
 
@@ -76,7 +77,7 @@ markdownify: false
 (for example, for the Python library, the config reader link is: [platformshconfig](https://github.com/platformsh/config-reader-python)). -->
 
 {{% config-reader %}}
-[`<CONFIG_READER_REPO_NAME>`](<LINK_TO_THE_SPECIFIC_REPO>)
+[`<CONFIG_READER_NAME>`](<CONFIG_READER_REPOSITORY_URL>)
 {{% /config-reader%}}
 
 ## Any other functions specific to the language
