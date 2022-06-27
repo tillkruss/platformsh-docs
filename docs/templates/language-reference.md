@@ -44,7 +44,7 @@ Ideally, also with a full working example that shows it in context.
 
 Depending on the language, a brief description of the recommended way to handle dependencies in the language.
 
-## Connecting to services
+## Connect to services
 
 If available, include examples for connecting to different services in an app
 (taken from https://examples.docs.platform.sh/).
@@ -55,7 +55,7 @@ To configure a given service, see the page dedicated to that service.
 {{< codetabs >}}
 
 ---
-title=<SERVICE>
+title=<SERVICE_EXAMPLE>
 file=static/files/fetch/examples/<LANGUAGE_TYPE>/<SERVICE>
 highlight=<LANGUAGE_TYPE>
 markdownify: false
@@ -64,8 +64,8 @@ markdownify: false
 <--->
 
 ---
-title=<SERVICE>
-file=static/files/fetch/examples/<LANGUAGE_TYPE>/<SERVICE>
+title=<DIFFERENT_SERVICE_EXAMPLE>
+file=static/files/fetch/examples/<LANGUAGE_TYPE>/<DIFFERENT_SERVICE>
 highlight=<LANGUAGE_TYPE>
 markdownify: false
 ---
