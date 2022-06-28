@@ -18,10 +18,8 @@ the Time-To-Live (TTL) on your domain is set to the lowest possible value in ord
 
 {{< note >}}
 
-You will not be able to use a `A` record.
-Verify your DNS provider supports CNAMES.
-(If it does not you will want to run away from it anyway).
-Also you will be much happier if it supports Apex domains (more in the next chapter).
+You can't use a `A` record.
+Verify your DNS provider supports CNAMES and Apex domains.
 
 {{< /note >}}
 
@@ -29,12 +27,12 @@ Also you will be much happier if it supports Apex domains (more in the next chap
 
 Make sure your site is running and configured as you want it to be, on your production branch.
 In particular, see the [Routes documentation](../define-routes/_index.md).
-You will need your routes configured appropriately before you begin.
+You need your routes to be configured appropriately before you begin.
 Make sure you have turned off [basic-authentication](/administration/web/configure-environment.md) if it was turned on during development.
 
 If your production environment is on a Dedicated instance,
 ensure that the code is up to date in both your `staging` and `production` branches,
-as those are what will be mirrored to the Dedicated instances.
+as those are mirrored to the Dedicated instances.
 Also ensure that the data on the production instance is up to date and ready to launch.
 
 ## 3. Optionally obtain a 3rd party TLS certificate
@@ -48,7 +46,7 @@ Platform.sh does not charge for using a 3rd party TLS certificate, although the 
 Platform.sh supports all kinds of certificates including domain-validated certificates,
 extended validation (EV) certificates, high-assurance certificates and wildcard certificates.
 The use of HA or EV certificates is the main reason why you may wish to use a third party issuer rather than the default certificate.
-You will also need a custom certificate if you use wildcard routes, as Let's Encrypt does not support wildcard certificates.
+You also need a custom certificate if you use wildcard routes, as Let's Encrypt does not support wildcard certificates.
 
 If you do wish to use a 3rd party certificate, ensure it is purchased and active prior to going live.
 

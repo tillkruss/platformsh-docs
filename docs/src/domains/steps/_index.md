@@ -14,14 +14,21 @@ The order of operations is not really important, but if you are migrating a site
 you should first configure the domain on the Platform.sh side, and only then switch DNS over.
 {{< /note >}}
 
+## Before you begin
+
+You need to have:
+
+- A domain and have access to its settings on the registrar's website.
+- The [CLI](../../development/cli/_index.md) installed locally.
+
 ## 1. Change your plan to a production plan
 
-If you are on a Development plan, you cannot add a domain.
-You will need to upgrade your subscription to a production plan.
+If you are on a Development plan, you can't add a domain.
+You need to upgrade your subscription to a production plan.
 
 {{< note >}}
 You are able to add a domain to your production environment.
-However, the domain used for non-production environments will always be generated and cannot be customized,
+However, the domain used for non-production environments is always generated and can't be customized,
 even if your project is on a Production plan.
 {{< /note >}}
 
@@ -33,45 +40,46 @@ You can also access information about the project's plan under "Billing"
 and then by selecting the project from your list of projects.
 You can make changes to the project by clicking ‘Upgrade Plan’.
 
-![Edit Plan](/images/management-console/billing-plan-upgrade.png "0.6")
+![Edit Plan](/images/management-console/billing-plan-upgrade.png "0.4")
 
 You can make changes to the type of plan, the number of environments, amount of storage and number of users here.
-When you make changes, it will update the monthly price you will be paying. Click `Upgrade plan` to save the new settings.
+When you make changes, the monthly price you pay is updated. Click `Upgrade plan` to save the new settings.
 
-![Edit Plan Choose](/images/management-console/settings-upgrade-plan.png "0.6")
+![Edit Plan Choose](/images/management-console/settings-upgrade-plan.png "0.4")
 
 You can find more information on pricing on the [pricing page](https://platform.sh/pricing).
 
-## 2. (CDN version) Configure your DNS provider
+## 2. Configure your DNS provider
 
-If you are serving the site through a CDN, configure your DNS provider to point at your CDN account.
-The address or CNAME to set for that will vary with the CDN provider.
-Refer to their documentation or to the [CDN guide](/domains/cdn/_index.md).
+{{< codetabs >}}
 
-## 2. (Non-CDN version) Configure your DNS provider
-
+---
+title=Without a CDN
+file=none
+highlight=false
+---
 Configure your DNS provider to point your domain to your Platform.sh production environment domain name.
 
 The way to do so will vary somewhat depending on your registrar, but nearly all registrars should allow you to set a CNAME.
 Some will call it an Alias or similar alternate name,
 but either way the intent is to say "this domain should always resolve to... this other domain".
 
-You can access the CNAME target by running `platform environment:info edge_hostname`.
-That is the host name by which Platform.sh knows your environment.
-Add a CNAME record from your desired domain (`www.example.com`) to the value of the `edge_hostname`.
+You can access the CNAME target by running the [CLI command](../../development/cli/_index.md) `platform environment:info edge_hostname`.
+The CNAME target is the host name by which Platform.sh knows your environment.
+Add a CNAME record from your desired domain (`www.example.com`) to the value of the CNAME target.
 
 If you have multiple domains you want to be served by the same application you will need to add a CNAME record for each of them.
 
 Note that depending on your registrar and the TTL you set,
-it could take anywhere from 15 minutes to 72 hours for the DNS change to fully propagate across the Internet.
+it can take anywhere from 15 minutes to 72 hours for the DNS change to fully propagate across the Internet.
 
-If you are using an apex domain (`example.com`),
+If you are using an apex domain (`<YOUR_DOMAIN>`),
 see the additional information about [Apex domains and CNAME records](/domains/steps/dns.md).
 
 If you are planning to host multiple subdomains on different projects,
 see the additional information about [Subdomains](/domains/steps/subdomains.md) *before* you add your domain to Platform.sh.
 
-## 3. (Non-CDN version) Set your domain in Platform.sh
+## 3. Set your domain in Platform.sh
 
 {{< note >}}
 
@@ -80,8 +88,8 @@ The CDN should already have been configured in advance to point to Platform.sh a
 
 {{< /note >}}
 
-This step will tell the Platform.sh edge layer where to route requests for your web site.
-You can do this through the CLI with `platform domain:add example.com`
+This step tells the Platform.sh edge layer where to route requests for your web site.
+You can do this through the CLI with `platform domain:add <YOUR_DOMAIN>`
 or [using the management console](/administration/web/configure-project.md#domains).
 
 You can add multiple domains to point to your project.
@@ -92,21 +100,21 @@ you can create a `hosts` file entry on your computer
 and point it to the IP address that resolves when you access your production project branch.
 
 To get the IP address, first run `platform environment:info edge_hostname`.
-That will print the "internal" domain name for your project.
-Run `ping <that domain name>` to get its IP address.
+That prints the "internal" domain name for your project.
+Run `ping <YOUR_DOMAIN>` to get its IP address.
 
-In OS X and Linux you can add that IP  to your `/etc/hosts` file.
+On macOS X and Linux you can add that IP  to your `/etc/hosts` file.
 In Windows the file is named `c:\Windows\System32\Drivers\etc\hosts`.
-You will need to be a admin user to be able to change that file.
-So in OS X you will usually run something like `sudo vi /etc/hosts`.
-After adding the line the file will look something like:
+You need to be a admin user to be able to change that file.
+On macOS you usually run something like `sudo vi /etc/hosts`.
+After adding the line the file looks like:
 
 ![Hosts File](/images/config-files/hosts-file.png "0.4")
 
 Alternatively, there's an add-on for Firefox
 that allows you to dynamically switch DNS IP addresses without modifying your `hosts` file.
 
-* [Firefox LiveHosts add-on](https://addons.mozilla.org/en-US/firefox/addon/livehosts/)
+- [Firefox LiveHosts add-on](https://addons.mozilla.org/en-US/firefox/addon/livehosts/)
 
 {{< note >}}
 
@@ -120,7 +128,21 @@ Sometimes it can take Let's Encrypt a couple of minutes to provision the certifi
 This is normal, and only means the first deploy after enabling a domain may take longer than usual.
 Setting the CNAME record with your DNS provider first helps to minimize that disruption.
 
-## 4. Bonus steps (Optional)
+<--->
+
+---
+title=With a CDN
+file=none
+highlight=false
+---
+
+If you are serving the site through a CDN, configure your DNS provider to point at your CDN account.
+The address or CNAME to set for that varies with the CDN provider.
+Refer to their documentation or to the [CDN guide](/domains/cdn/_index.md).
+
+{{< /codetabs >}}
+
+## Bonus steps (Optional)
 
 ### Configure health notifications
 
